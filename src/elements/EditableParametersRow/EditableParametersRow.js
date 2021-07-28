@@ -21,7 +21,13 @@ const EditableParametersRow = ({
 
   const handleDocumentClick = useCallback(
     event => {
-      if (!tableRowRef.current?.contains(event.target)) {
+      if (
+        !tableRowRef.current?.contains(event.target) &&
+        !selectOption.parameterType
+          .concat(selectOption.parametersValueType)
+          .map(item => item.id)
+          .find(id => id === event.path[0].innerText)
+      ) {
         setEditItem(false)
         setSelectedParameter({})
       }
